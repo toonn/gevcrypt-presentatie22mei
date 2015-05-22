@@ -9,7 +9,6 @@ Outline
 * Hardware Faults
 * RSA Signatures
 * Fiat-Shamir Identification Scheme
-* Schnorr's Identification Scheme
 * Defending Against Fault Based Attacks
 * Summary
 
@@ -86,19 +85,31 @@ Fiat-Shamir Protocol
 Fiat-Shamir Identification Scheme
 =================================
 
-* Register faults that occur while the Alice is waiting for a challenge
-* Given t failty runs $s_1,...,s_t$ can be recovered in the time it takes to
+* Attack based on register faults that occur while Alice is waiting for a
+  challenge
+* Given t faulty runs $s_1,...,s_t$ can be recovered in the time it takes to
   perform $\\mathcal{O}(n t + t^2)$ modular multiplications
 
 
 Fiat-Shamir Vulnerability
 =========================
 
+* Suppose one bit of $r$ is flipped while waiting for $S$, $E = \\pm 2^i$,
+  Bob receives correct value $r^2 \\bmod N$ but $y$ is computed incorrectly
+  $$\\hat{y} = (r + E) \\cdot \\prod_{i \\in S} s_i$$
+* Bob knows $\\prod_{i \\in S} v_i$ and can compute
+  $$(r + E)^2 = \\frac{\\hat{y}^2}{\\prod_{i \\in S} v_i} \\pmod{N}$$
+* Bob can guess the $n$ possible values of $E$ and recover r from
+  $$(r + E)^2 - r^2 = 2 E \\cdot r + E^2 \\pmod{N}$$
 
 
-Schnorr's Identification Scheme
-===============================
+Fiat-Shamir Vulnerability
+=========================
 
+* Using $r$ and $E$ Bob can compute
+  $$\\prod_{i \\in S} s_i = \\frac{\\hat{y}}{r + E} \\pmod{N}$$
+* To find $s_1,...,s_t$ Bob constructs suitable sets $S$, singleton sets or
+  sets that result in a set of equations for the $s_i$
 
 
 Defending Against Fault Based Attacks
@@ -112,7 +123,7 @@ Defending Against Fault Based Attacks
 Summary
 =======
 
-* Signatures schemes using CRT, e.g. RSA and Rabin, are especially vulnerable
+* Signature schemes using CRT, e.g. RSA and Rabin, are especially vulnerable
 * Other implementations of RSA signatures are also vulnerable but require
   many more faults
 * Identification schemes are vulnerable as well, e.g. Fiat-Shamir, Schnorr
