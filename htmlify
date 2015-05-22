@@ -1,0 +1,1 @@
+rst2html5 --jquery --reveal-js --reveal-js-opts theme=pdf,themepath=~/Src/presentations/printtopdf --mathjax --mathjax-opts url=http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML --embed-content oiccpf_22may.rst > reveal.html
